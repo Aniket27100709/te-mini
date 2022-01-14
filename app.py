@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 import sweetviz as sv
 from streamlit_pandas_profiling import st_profile_report
 import streamlit as st
-
+from wordcloud import WordCloud
 # EDA pkgs
 import pandas as pd
 import codecs  # will help to load our files
@@ -43,6 +43,13 @@ def main():
             st.dataframe(df.head())
             profile = ProfileReport(df)
             st_profile_report(profile)
+    elif choice=="WordCloud":
+        data=pd.read_csv('amazon(1).csv')
+        text=data['customer_reviews']
+        word_cloud=WordCloud().generate(text)
+        plt.imshow(word_cloud)
+        st.pyplot()
+
 
     elif choice == "Product's Analysis":
         def transform_text(text):
